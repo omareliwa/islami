@@ -28,28 +28,32 @@ class RadioTab extends StatelessWidget {
           const SizedBox(
             height: 25,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              IconButton(
-                icon: const Icon(Icons.skip_previous, color: AppTheme.lightPrimary),
-                onPressed: () {},
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.play_arrow,
-                  color: AppTheme.lightPrimary,
-                  size: 40.0,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 45.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.skip_previous,
+                      color: AppTheme.lightPrimary),
+                  onPressed: () {},
                 ),
-              ),
-              IconButton(
+                IconButton(
                   onPressed: () {},
                   icon: const Icon(
-                    Icons.skip_next,
+                    Icons.play_arrow,
                     color: AppTheme.lightPrimary,
-                  ))
-            ],
+                    size: 40.0,
+                  ),
+                ),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.skip_next,
+                      color: AppTheme.lightPrimary,
+                    ))
+              ],
+            ),
           )
         ],
       ),
