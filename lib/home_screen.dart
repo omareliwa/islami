@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+
 import 'package:assignment2/tabs/hadeth/hadeth_tab.dart';
 import 'package:assignment2/tabs/quran/quran_tab.dart';
 import 'package:assignment2/tabs/radio/radio_tab.dart';
@@ -18,9 +20,9 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
   List<Widget> tabs = [
     const RadioTab(),
-    const SebhaTab(),
+     SebhaTab(),
     const HadethTab(),
-    const QuranTab(),
+     QuranTab(),
     const SettingTab(),
   ];
 
@@ -45,31 +47,31 @@ class _HomeScreenState extends State<HomeScreen> {
               setState(() {});
             },
             items: [
-               BottomNavigationBarItem(
+                BottomNavigationBarItem(
                 icon: ImageIcon(
                   AssetImage('assets/image/icon_radio.png'),
                 ),
                 label: 'Radio',
               ),
-               BottomNavigationBarItem(
+                BottomNavigationBarItem(
                 icon: ImageIcon(
                   AssetImage('assets/image/icon_sebha.png'),
                 ),
                 label: 'Sebha',
               ),
-               BottomNavigationBarItem(
+                BottomNavigationBarItem(
                 icon: ImageIcon(
                   AssetImage('assets/image/icon_hadeth.png'),
                 ),
                 label: 'Hadeth',
               ),
-               BottomNavigationBarItem(
+                BottomNavigationBarItem(
                 icon: ImageIcon(
                   AssetImage('assets/image/icon_quran.png'),
                 ),
                 label: 'Quran',
               ),
-               BottomNavigationBarItem(
+                BottomNavigationBarItem(
                 icon: Icon(Icons.settings_outlined),
                 label: 'Settings',
               ),
