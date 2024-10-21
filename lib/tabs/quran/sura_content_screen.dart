@@ -1,8 +1,10 @@
 import 'package:assignment2/app_theme.dart';
 import 'package:assignment2/tabs/quran/quran_tab.dart';
+import 'package:assignment2/tabs/setting/setting_provider.dart';
 import 'package:assignment2/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 class SuraContentScreen extends StatefulWidget {
   static const String routeName = '/sura-content';
@@ -24,11 +26,13 @@ class _SuraContentScreenState extends State<SuraContentScreen> {
     if (ayat.isEmpty) {
       loadSuraFile();
     }
+    SettingProvider settingProvider = Provider.of<SettingProvider>(context);
 
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/image/default_bg.png'),
+          image: AssetImage(
+              'assets/image/${Provider.of<SettingProvider>(context).backgroundImageName}.png'),
           fit: BoxFit.fill,
         ),
       ),
@@ -54,17 +58,23 @@ class _SuraContentScreenState extends State<SuraContentScreen> {
                     ),
                     Container(
                         decoration: BoxDecoration(
-                            color: AppTheme.black,
+                            color: settingProvider.isDark
+                                ? AppTheme.gold
+                                : AppTheme.white,
                             borderRadius: BorderRadius.circular(20)),
-                        child: const Icon(
+                        child: Icon(
                           Icons.play_arrow,
-                          color: AppTheme.white,
+                          color: settingProvider.isDark
+                              ? AppTheme.black
+                              : AppTheme.white,
                         )),
                   ],
                 ),
-                const Divider(
+                Divider(
                   thickness: 2,
-                  color: AppTheme.lightPrimary,
+                  color: settingProvider.isDark
+                      ? AppTheme.gold
+                      : AppTheme.lightPrimary,
                   endIndent: 50,
                   indent: 50,
                 ),
@@ -78,18 +88,21 @@ class _SuraContentScreenState extends State<SuraContentScreen> {
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(25),
-                color: AppTheme.white,
+                color: settingProvider.isDark
+                    ? AppTheme.darkPrimary
+                    : AppTheme.white,
               ),
-              child: ayat.isEmpty
-                  ? const LoadingIndicator()
-                  : ListView.builder(
-                      itemBuilder: (_, index) => Text(
-                        ayat[index],
-                        style: Theme.of(context).textTheme.titleLarge,
-                        textAlign: TextAlign.center,
-                      ),
-                      itemCount: ayat.length,
-                    ),
+              child: // ayat.isEmpty
+                  // ? const LoadingIndicator()
+                  //:
+                  ListView.builder(
+                itemBuilder: (_, index) => Text(
+                  ayat[index],
+                  style: Theme.of(context).textTheme.titleLarge,
+                  textAlign: TextAlign.center,
+                ),
+                itemCount: ayat.length,
+              ),
             ),
           ]),
         ),
@@ -98,9 +111,9 @@ class _SuraContentScreenState extends State<SuraContentScreen> {
   }
 
   Future<void> loadSuraFile() async {
-    await Future.delayed(
-      const Duration(seconds: 2),
-    );
+    // await Future.delayed(
+    // const Duration(seconds: 2),
+    // );
     String sura =
         await rootBundle.loadString('assets/text/${args.index + 1}.txt');
     ayat = sura.split('\n');

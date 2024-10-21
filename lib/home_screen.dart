@@ -4,8 +4,10 @@ import 'package:assignment2/tabs/hadeth/hadeth_tab.dart';
 import 'package:assignment2/tabs/quran/quran_tab.dart';
 import 'package:assignment2/tabs/radio/radio_tab.dart';
 import 'package:assignment2/tabs/sebha/sebha_tab.dart';
+import 'package:assignment2/tabs/setting/setting_provider.dart';
 import 'package:assignment2/tabs/setting/setting_tab.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = '/home';
@@ -29,9 +31,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration:  BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/image/default_bg.png'),
+          image: AssetImage('assets/image/${Provider.of<SettingProvider>(context).backgroundImageName}.png'),
           fit: BoxFit.fill,
         ),
       ),

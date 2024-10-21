@@ -1,7 +1,7 @@
 import 'package:assignment2/app_theme.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:assignment2/tabs/setting/setting_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
 class SebhaTab extends StatefulWidget {
   SebhaTab({super.key});
@@ -13,7 +13,7 @@ class SebhaTab extends StatefulWidget {
 class _SebhaTabState extends State<SebhaTab> {
   int counter = 1;
   int index = 0;
- double turns = 0 ;
+  double turns = 0;
 
   List<String> sebhaList = [
     "سبحان اللَه",
@@ -23,6 +23,7 @@ class _SebhaTabState extends State<SebhaTab> {
 
   @override
   Widget build(BuildContext context) {
+    SettingProvider settingProvider = Provider.of<SettingProvider>(context);
     return Padding(
         padding: EdgeInsets.symmetric(
           vertical: MediaQuery.sizeOf(context).height * 0.01,
@@ -30,15 +31,14 @@ class _SebhaTabState extends State<SebhaTab> {
         ),
         child: Column(
           children: [
-
             Image.asset(
-              'assets/image/head_sebha_logo.png',
+              Provider.of<SettingProvider>(context).headSebha,
               height: MediaQuery.sizeOf(context).height * 0.120,
               width: MediaQuery.sizeOf(context).height * 0.17,
             ),
             InkWell(
                 onTap: () {
-                  turns+=1/30;
+                  turns += 1 / 30;
                   counterSebha();
                   setState(() {});
                 },
@@ -46,7 +46,7 @@ class _SebhaTabState extends State<SebhaTab> {
                   turns: turns,
                   duration: Duration(microseconds: 1),
                   child: Image.asset(
-                    'assets/image/body_sebha_logo.png',
+                    Provider.of<SettingProvider>(context).bodySebha,
                     height: MediaQuery.sizeOf(context).height * 0.26,
                     width: MediaQuery.sizeOf(context).height * 0.56,
                   ),
@@ -61,14 +61,21 @@ class _SebhaTabState extends State<SebhaTab> {
             const SizedBox(height: 20),
             Container(
               decoration: BoxDecoration(
-                  color: AppTheme.lightPrimary,
+                  color: settingProvider.isDark
+                      ? AppTheme.gold
+                      : AppTheme.lightPrimary,
                   borderRadius: BorderRadius.circular(15)),
               height: 85,
               width: 65,
               child: Center(
                   child: Text(
                 '$counter',
-                style: Theme.of(context).textTheme.titleLarge,
+                style: TextStyle(
+                    color: settingProvider.isDark
+                        ? AppTheme.black
+                        : AppTheme.white,
+                    fontSize: 25,
+                    fontWeight: FontWeight.w400),
               )),
             ),
             const SizedBox(
@@ -76,7 +83,9 @@ class _SebhaTabState extends State<SebhaTab> {
             ),
             Container(
               decoration: BoxDecoration(
-                  color: AppTheme.lightPrimary,
+                  color: settingProvider.isDark
+                      ? AppTheme.gold
+                      : AppTheme.lightPrimary,
                   borderRadius: BorderRadius.circular(20)),
               height: 45,
               width: 150,
@@ -84,7 +93,9 @@ class _SebhaTabState extends State<SebhaTab> {
                   child: Text(
                 sebhaList[index],
                 style: TextStyle(
-                    color: AppTheme.white,
+                    color: settingProvider.isDark
+                        ? AppTheme.black
+                        : AppTheme.white,
                     fontSize: 25,
                     fontWeight: FontWeight.w400),
               )),
