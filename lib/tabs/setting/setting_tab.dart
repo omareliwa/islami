@@ -1,7 +1,7 @@
 import 'package:assignment2/tabs/setting/setting_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../app_theme.dart';
 import 'language.dart';
 
@@ -33,7 +33,7 @@ class _SettingTabState extends State<SettingTab> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Dark Theme',
+                AppLocalizations.of(context)!.darkTheme,
                 style: Theme.of(context)
                     .textTheme
                     .titleLarge
@@ -41,8 +41,8 @@ class _SettingTabState extends State<SettingTab> {
               ),
               Switch(
                 value: settingProvider.isDark,
-                onChanged: (isDark) => settingProvider
-                    .changeTheme(isDark ? ThemeMode.dark : ThemeMode.light),
+                onChanged: (value) => settingProvider.changeTheme(),
+                // .changeTheme(isDark ? ThemeMode.dark : ThemeMode.light),
                 activeTrackColor: AppTheme.gold,
               ),
             ],
@@ -54,29 +54,34 @@ class _SettingTabState extends State<SettingTab> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Language',
+                AppLocalizations.of(context)!.language,
                 style: Theme.of(context)
                     .textTheme
                     .titleLarge
                     ?.copyWith(fontWeight: FontWeight.w500),
               ),
               DropdownButton<Language>(
-                value: language.first,
+                value: language.firstWhere(
+                    (language) => language.code == settingProvider.langCode),
                 items: language
-                    .map((language) => DropdownMenuItem(
+                    .map((language) => DropdownMenuItem<Language>(
                           value: language,
                           child: Text(language.name,
                               style: Theme.of(context).textTheme.titleLarge),
                         ))
                     .toList(),
                 onChanged: (selectedLanguage) {
-                  //  if (selectedLanguage != null) print(selectedLanguage.code);
+                  if (selectedLanguage != null) {
+                    settingProvider.changeLang(selectedLanguage.code);
+                  }
                 },
                 borderRadius: BorderRadius.circular(20),
                 dropdownColor: settingProvider.isDark
                     ? AppTheme.darkPrimary
                     : AppTheme.white,
               ),
+
+
             ],
           ),
         ],

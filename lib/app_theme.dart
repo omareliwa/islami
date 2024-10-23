@@ -26,7 +26,7 @@ class AppTheme {
       selectedItemColor: black,
       unselectedItemColor: white,
     ),
-    textTheme: TextTheme(
+    textTheme: const TextTheme(
       headlineSmall:
           TextStyle(fontSize: 25, fontWeight: FontWeight.w400, color: black),
       titleLarge:
@@ -52,7 +52,7 @@ class AppTheme {
       selectedItemColor: gold,
       unselectedItemColor: white,
     ),
-    textTheme: TextTheme(
+    textTheme: const TextTheme(
       headlineSmall:
           TextStyle(fontSize: 25, fontWeight: FontWeight.w400, color: white),
       titleLarge:

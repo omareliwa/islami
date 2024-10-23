@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SebhaTab extends StatefulWidget {
-  SebhaTab({super.key});
+  const SebhaTab({super.key});
 
   @override
   State<SebhaTab> createState() => _SebhaTabState();
@@ -31,26 +31,39 @@ class _SebhaTabState extends State<SebhaTab> {
         ),
         child: Column(
           children: [
-            Image.asset(
-              Provider.of<SettingProvider>(context).headSebha,
-              height: MediaQuery.sizeOf(context).height * 0.120,
-              width: MediaQuery.sizeOf(context).height * 0.17,
+            const SizedBox(
+              height: 5,
             ),
-            InkWell(
-                onTap: () {
-                  turns += 1 / 30;
-                  counterSebha();
-                  setState(() {});
-                },
-                child: AnimatedRotation(
-                  turns: turns,
-                  duration: Duration(microseconds: 1),
+            Stack(
+              children: [
+                Center(
                   child: Image.asset(
-                    Provider.of<SettingProvider>(context).bodySebha,
-                    height: MediaQuery.sizeOf(context).height * 0.26,
-                    width: MediaQuery.sizeOf(context).height * 0.56,
+                    Provider.of<SettingProvider>(context).headSebha,
+                    height: MediaQuery.sizeOf(context).height * 0.120,
+                    width: MediaQuery.sizeOf(context).height * 0.17,
                   ),
-                )),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 70.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      turns += 1 / 30;
+                      counterSebha();
+                      setState(() {});
+                    },
+                    child: AnimatedRotation(
+                      turns: turns,
+                      duration: const Duration(microseconds: 1),
+                      child: Image.asset(
+                        Provider.of<SettingProvider>(context).bodySebha,
+                        height: MediaQuery.sizeOf(context).height * 0.26,
+                        width: MediaQuery.sizeOf(context).height * 0.56,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(
               height: 20,
             ),
@@ -62,7 +75,7 @@ class _SebhaTabState extends State<SebhaTab> {
             Container(
               decoration: BoxDecoration(
                   color: settingProvider.isDark
-                      ? AppTheme.gold
+                      ? AppTheme.darkPrimary
                       : AppTheme.lightPrimary,
                   borderRadius: BorderRadius.circular(15)),
               height: 85,
@@ -72,8 +85,8 @@ class _SebhaTabState extends State<SebhaTab> {
                 '$counter',
                 style: TextStyle(
                     color: settingProvider.isDark
-                        ? AppTheme.black
-                        : AppTheme.white,
+                        ? AppTheme.white
+                        : AppTheme.black,
                     fontSize: 25,
                     fontWeight: FontWeight.w400),
               )),
